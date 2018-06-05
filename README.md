@@ -1,2 +1,2 @@
-# flutter_mdhandbookapp
+# fluttermdhandbookapp
 MD Handbook App re-written in flutter
