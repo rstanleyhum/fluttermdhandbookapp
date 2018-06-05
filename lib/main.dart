@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(new MyApp());
 
@@ -44,12 +45,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final _initialMarkdownData = """
+# Markdown Title
+
+[Google](https://www.google.com)
+""";
+
   String _markdownData = "";
 
   void _setMarkdownData() {
     setState(() {
-      _markdownData = "# Markdown Title";
+      _markdownData = _initialMarkdownData;
     });
+  }
+
+  void _onTapLink(String href) {
+    if (href.startsWith("http")) {
+      launch(href);
+    }
   }
 
   @override
@@ -61,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Markdown(
         data: _markdownData,
+        onTapLink: (href) => _onTapLink(href),
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: _setMarkdownData,
